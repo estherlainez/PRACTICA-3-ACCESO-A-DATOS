@@ -11,130 +11,132 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
+
 import modelo.HotelModel;
 import modelo.VueloModel;
 
 public class HotelController {
+	private static String ruta="src/hoteles.dat";
 
-	
-	public static void añadirNuevoHotel(Scanner teclado,ArrayList<HotelModel>hoteles) {
-		String ruta="src/";
-		String nombreF="hoteles.dat";
-		File f= new File(ruta+nombreF);
+	public static void añadirNuevoHotel(Scanner teclado) {
+
+		File f= new File(ruta);
+
 		try {
 			FileOutputStream fileout = new FileOutputStream(f,true);
-			ObjectOutputStream objectout = new ObjectOutputStream(fileout);
-			teclado.nextLine();
-			System.out.println("Introduzca nombre:");
-			String n=teclado.nextLine();
-			System.out.println("Añada descripcion del hotel:");
-			String d=teclado.nextLine();
-			System.out.println("Añada ciudad donde se encuentra el Hotel:");
-			String c=teclado.nextLine();
-			System.out.println("Añada precio del hotel:");
-			double p=teclado.nextDouble();
-			
-			HotelModel h=new HotelModel(n,d,c,p);
-			//hoteles.add(h);
-			
-			objectout.writeObject(h);
-			
-			objectout.close();
-			
-			
+
+			ObjectOutputStream os=null;
+			if(f.exists()) {
+
+				os=new MyObjectOutputStream(new FileOutputStream(f));
+
+				ObjectOutputStream objectout = new ObjectOutputStream(fileout);
+				teclado.nextLine();
+				System.out.println("Introduzca nombre:");
+				String n=teclado.nextLine();
+				System.out.println("Añada descripcion del hotel:");
+				String d=teclado.nextLine();
+				System.out.println("Añada ciudad donde se encuentra el Hotel:");
+				String c=teclado.nextLine();
+				System.out.println("Añada precio del hotel:");
+				double p=teclado.nextDouble();
+
+				HotelModel h=new HotelModel(n,d,c,p);
+
+				objectout.writeObject(h);
+
+				objectout.close();
+			}else
+				os=new ObjectOutputStream(new FileOutputStream(f));
+			os.close();
+
 		}catch(IOException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
-	
+
 	public static void modificarHotel(Scanner teclado) {
+		ArrayList<HotelModel>hoteles=null;
+
 		try {
-			File f= new File("hoteles.dat");
+			hoteles=listarHoteles();
+
+
+
+
+			System.out.println("Introduce nombre que vas a modificar");
+			teclado.nextLine();
+			String nM=teclado.nextLine();
+			for(HotelModel h:hoteles) {
+				if(h.getNombre().equals(nM)) {
+					System.out.println("Introduzca nuevo nombre:");
+					String n=teclado.nextLine();
+					h.setNombre(n);
+					System.out.println("Añada nueva descripcion del hotel:");
+					String d=teclado.nextLine();
+					h.setDescripcion(d);
+					System.out.println("Añada nueva ciudad donde se encuentra el Hotel:");
+					String c=teclado.nextLine();
+					h.setCiudad(c);
+					System.out.println("Añada nuevo precio del hotel:");
+					double p=teclado.nextDouble();
+					h.setPrecio(p);
+				}
+
+			}
+
+		}catch(Exception e) {
+
+			for (HotelModel h:hoteles) {
+				System.out.println(h.toString());
+			}
+		}
+
+		//escribo de nuevo
+		try {
+			File f= new File(ruta);
 			FileOutputStream fileout = new FileOutputStream(f);
 			ObjectOutputStream objectout = new ObjectOutputStream(fileout);
-			System.out.println("¿Que hotel va a modificar? Introduzca su nombre");
-			String nM=teclado.nextLine();
-			HotelModel a=null;
-			if(a.getNombre().equals("nM")) {
-				System.out.println("Introduzca nuevo nombre:");
-				String n=teclado.nextLine();
-				a.setNombre(n);
-				System.out.println("Añada nueva descripcion del hotel:");
-				String d=teclado.nextLine();
-				a.setDescripcion(d);
-				System.out.println("Añada nueva ciudad donde se encuentra el Hotel:");
-				String c=teclado.nextLine();
-				a.setCiudad(c);
-				System.out.println("Añada nuevo precio del hotel:");
-				double p=teclado.nextDouble();
-				a.setPrecio(p);
-				System.out.println(a.toString());
-				objectout.writeObject(a);
-			}
-			
+			for(HotelModel h: hoteles)
+				objectout.writeObject(h);
+
 			objectout.close();
 		}catch(IOException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
-	
-	public static void listarHoteles() {
-		
-	 	File f= new File("src/hoteles.dat");
+
+	public static  ArrayList<HotelModel>listarHoteles() {
+		ArrayList<HotelModel>hoteles=new ArrayList<HotelModel>();
+		File f= new File(ruta);
 		FileInputStream filein=null;
 		ObjectInputStream objectin=null;
 		HotelModel dh=null;
-		
+
 		try {
 			ObjectInputStream ois=new ObjectInputStream(new FileInputStream(f));
-			
+
 			while(true) {
-				HotelModel hotel=(HotelModel) ois.readObject();
-				System.out.println(dh.getNombre()+" "+dh.getDescripcion()+" "+dh.getCiudad()+" "+dh.getPrecio());
+				hoteles.add(((HotelModel)ois.readObject()));
+
 			}
-			
+
 		}catch(ClassNotFoundException e) {
 			e.printStackTrace();		
 		}catch(EOFException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
+
+			for (HotelModel h:hoteles) {
+				System.out.println(h.toString());
+			}
 		}catch(IOException e) {
 			e.printStackTrace();
 		}
-		
-	
-	}
-	
-	public static ArrayList<HotelModel> listaHoteles(ArrayList<HotelModel> hoteles) {
-
-		try {
-			File f= new File("src/hoteles.dat");
-			FileInputStream filein=null;
-			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(f));
-	        HotelModel hotel = (HotelModel)ois.readObject();
-	            
-	        Iterator<HotelModel> i = hoteles.listIterator();
-	        while(i.hasNext()){
-	             System.out.println("Hotel: "+i.next().getNombre());
-	        }
-
-		} catch (FileNotFoundException e) {
-
-			e.printStackTrace();
-		} catch (IOException e) {
-
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-
-			e.printStackTrace();
-		}
-
 		return hoteles;
 
-
-
-
 	}
+
 
 }

@@ -41,14 +41,14 @@ public class Main {
 				VueloController.añadirNuevoVuelo(teclado);
 				break;
 			case 2:
-				VueloController.MostrarVuelos();
+				VueloController.listarVuelos();
 				break;
 			case 3:
 				break;
 			case 4:
 				break;
 			case 5:
-				HotelController.añadirNuevoHotel(teclado, hoteles);
+				HotelController.añadirNuevoHotel(teclado);
 				break;
 			case 6:
 				HotelController.listarHoteles();

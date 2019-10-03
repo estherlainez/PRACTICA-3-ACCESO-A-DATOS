@@ -20,7 +20,6 @@ public class PaqueteController {
 			String nombreF= "paquetes.dat";
 			File f= new File(ruta+nombreF);
 			try {
-				f.createNewFile();
 				FileOutputStream fileout = new FileOutputStream(f,true);
 				ObjectOutputStream objectout = new ObjectOutputStream(fileout);
 				teclado.nextLine();
