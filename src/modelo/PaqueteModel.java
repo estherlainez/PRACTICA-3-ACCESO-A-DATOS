@@ -3,13 +3,15 @@ package modelo;
 import java.io.Serializable;
 
 public class PaqueteModel implements Serializable{
-	private String fechaInicio;
-	private String fechaFin;
-	private HotelModel estancia;
-	private VueloModel vueloIda;
-	private VueloModel vueloVuelta;
+	String nombre;
+	String fechaInicio;
+	String fechaFin;
+	HotelModel estancia;
+	VueloModel vueloIda;
+	VueloModel vueloVuelta;
 	
-	public PaqueteModel(String fIni, String fFin, HotelModel e,VueloModel ida, VueloModel vuelta) {
+	public PaqueteModel(String nom,String fIni, String fFin, HotelModel e,VueloModel ida, VueloModel vuelta) {
+		this.nombre=nom;
 		this.fechaInicio=fIni;
 		this.fechaFin=fFin;
 		this.estancia=e;
@@ -18,7 +20,14 @@ public class PaqueteModel implements Serializable{
 		
 	}
 	
-	
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
 	public String getFechaInicio() {
 		return fechaInicio;
 	}
@@ -59,15 +68,23 @@ public class PaqueteModel implements Serializable{
 		this.vueloVuelta = vueloVuelta;
 	}
 
-
 	@Override
 	public String toString() {
-		return "PaqueteModel [fechaInicio=" + fechaInicio + ", fechaFin=" + fechaFin + ", estancia=" + estancia
-				+ ", vueloIda=" + vueloIda + ", vueloVuelta=" + vueloVuelta + "]";
+		String paq="DATOS DEL PAQUETE"
+				+"\nNombre del Paquete\n"
+				+this.nombre
+				+"\nFecha inicio\n"+
+				this.fechaInicio+
+				"\nFecha fin\n"+
+				this.fechaFin+
+				"\nDatos del hotel de estancia\n"+
+				estancia.toString()+
+				"\nDatos del vuelo de ida\n"+
+				vueloIda.toString()+
+				"\nDatos del vuelo de vuelta\n"+
+				vueloVuelta.toString();
+		return paq;
 	}
-
-	
-	
 	
 	
 }

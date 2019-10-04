@@ -2,6 +2,7 @@ package vista;
 import java.util.*;
 
 import control.HotelController;
+import control.PaqueteController;
 import control.VueloController;
 import modelo.HotelModel;
 import modelo.PaqueteModel;
@@ -14,9 +15,9 @@ public class Main {
 		Scanner teclado=new Scanner(System.in);
 		int opcion;
 		
-		ArrayList<HotelModel>hoteles=new ArrayList<HotelModel>();
-		ArrayList<VueloModel>vuelos=new ArrayList<VueloModel>();
-		ArrayList<PaqueteModel>paquetes=new ArrayList<PaqueteModel>();
+		//ArrayList<HotelModel>hoteles=new ArrayList<HotelModel>();
+		//ArrayList<VueloModel>vuelos=new ArrayList<VueloModel>();
+		//ArrayList<PaqueteModel>paquetes=new ArrayList<PaqueteModel>();
 	
 		do {
 			System.out.println("MENU");
@@ -32,35 +33,49 @@ public class Main {
 			System.out.println("10.Leer Paquetes");
 			System.out.println("11.Modificar Paquete");
 			System.out.println("12.Borrar un paquete");
-			System.out.println("Introduzca oopcion a elegir");
+			System.out.println("Introduzca opcion a elegir");
 			opcion=teclado.nextInt();
 			
 			switch(opcion) {
 			
 			case 1:
 				VueloController.añadirNuevoVuelo(teclado);
+				
 				break;
 			case 2:
 				VueloController.listarVuelos();
+				
 				break;
 			case 3:
+				VueloController.modificarVuelo(teclado);
+				
 				break;
+				
 			case 4:
+				VueloController.BorrarVuelo(teclado);
+				
 				break;
 			case 5:
 				HotelController.añadirNuevoHotel(teclado);
+				
 				break;
 			case 6:
 				HotelController.listarHoteles();
+				
 				break;
 			case 7:
 				HotelController.modificarHotel(teclado);
+				
 				break;
 			case 8:
+				HotelController.BorrarHotel(teclado);
+				
 				break;
 			case 9:
+				PaqueteController.añadirNuevoPaquete(teclado);
 				break;
 			case 10:
+				PaqueteController.listarPaquetes();
 				break;
 			case 11:
 				break;

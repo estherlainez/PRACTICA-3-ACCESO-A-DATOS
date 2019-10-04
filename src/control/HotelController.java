@@ -19,7 +19,7 @@ public class HotelController {
 	private static String ruta="src/hoteles.dat";
 
 	public static void añadirNuevoHotel(Scanner teclado) {
-
+		ArrayList<HotelModel>hoteles=new ArrayList<HotelModel>();
 		File f= new File(ruta);
 
 		try {
@@ -44,7 +44,7 @@ public class HotelController {
 				HotelModel h=new HotelModel(n,d,c,p);
 
 				objectout.writeObject(h);
-
+				//hoteles.add(h);
 				objectout.close();
 			}else
 				os=new ObjectOutputStream(new FileOutputStream(f));
@@ -61,9 +61,6 @@ public class HotelController {
 
 		try {
 			hoteles=listarHoteles();
-
-
-
 
 			System.out.println("Introduce nombre que vas a modificar");
 			teclado.nextLine();
@@ -107,14 +104,13 @@ public class HotelController {
 		}
 
 	}
+	
+	
 
 	public static  ArrayList<HotelModel>listarHoteles() {
 		ArrayList<HotelModel>hoteles=new ArrayList<HotelModel>();
 		File f= new File(ruta);
-		FileInputStream filein=null;
-		ObjectInputStream objectin=null;
-		HotelModel dh=null;
-
+		
 		try {
 			ObjectInputStream ois=new ObjectInputStream(new FileInputStream(f));
 
@@ -126,7 +122,6 @@ public class HotelController {
 		}catch(ClassNotFoundException e) {
 			e.printStackTrace();		
 		}catch(EOFException e) {
-			//e.printStackTrace();
 
 			for (HotelModel h:hoteles) {
 				System.out.println(h.toString());
@@ -135,6 +130,36 @@ public class HotelController {
 			e.printStackTrace();
 		}
 		return hoteles;
+
+	}
+	
+	
+	
+	public static void BorrarHotel(Scanner teclado) {
+		ArrayList<HotelModel>hoteles=null;
+		
+		try {
+			hoteles=listarHoteles();
+
+			System.out.println("Introduce la posicion del hotel a borrar");
+			int pos=teclado.nextInt();
+			String origen=teclado.nextLine();
+			for(int i=1;i<=hoteles.size();i++) {
+				if(!(i==pos)) {
+					
+					File f= new File(ruta);
+					FileOutputStream fileout = new FileOutputStream(f);
+					ObjectOutputStream objectout = new ObjectOutputStream(fileout);
+					for(HotelModel ho: hoteles)
+						objectout.writeObject(ho);
+
+					objectout.close();
+				}
+			}
+
+		}catch(IOException e) {
+			e.printStackTrace();
+		}
 
 	}
 
