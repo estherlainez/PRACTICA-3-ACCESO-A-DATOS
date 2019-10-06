@@ -226,4 +226,32 @@ public class PaqueteController {
 
 	}
 	
+	public static void BorrarPaquete(Scanner teclado) {
+		ArrayList<PaqueteModel>paquetes=null;
+		
+		try {
+			paquetes=listarPaquetes();
+
+			System.out.println("Introduce la posicion del paquete a borrar");
+			int pos=teclado.nextInt();
+			String origen=teclado.nextLine();
+			for(int i=1;i<=paquetes.size();i++) {
+				if(!(i==pos)) {
+					
+					File f= new File(ruta);
+					FileOutputStream fout = new FileOutputStream(f);
+					ObjectOutputStream out = new ObjectOutputStream(fout);
+					for(PaqueteModel pa: paquetes)
+						out.writeObject(pa);
+
+					out.close();
+				}
+			}
+
+		}catch(IOException e) {
+			e.printStackTrace();
+		}
+
+	}
+	
 }

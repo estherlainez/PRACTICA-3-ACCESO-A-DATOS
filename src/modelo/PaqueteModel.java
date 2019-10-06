@@ -95,6 +95,7 @@ public class PaqueteModel implements Serializable{
 		return dias;
 	}
 	
+	
 	public static  boolean compararFechas(String fIni,String fFin) {
 		boolean esAnterior=false;
 		try {
@@ -115,7 +116,6 @@ public class PaqueteModel implements Serializable{
 	@Override
 	public String toString() {
 		int diasViaje=PaqueteModel.calcularDias(this.fechaInicio, this.fechaFin);
-		//System.out.println("Duracion de dias del viaje--->"+diasViaje+" dias");
 		double sumaTotal=estancia.getPrecio()*diasViaje+ vueloIda.getPrecio()+vueloVuelta.getPrecio();
 		String paq="DATOS DEL PAQUETE"
 				+"\nNombre del Paquete\n"+

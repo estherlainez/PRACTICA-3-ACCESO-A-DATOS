@@ -19,18 +19,17 @@ public class HotelController {
 	private static String ruta="src/hoteles.dat";
 
 	public static void añadirNuevoHotel(Scanner teclado) {
-		//ArrayList<HotelModel>hoteles=new ArrayList<HotelModel>();
 		File f= new File(ruta);
-
 		try {
 			FileOutputStream fileout = new FileOutputStream(f,true);
 
 			ObjectOutputStream os=null;
 			if(f.exists()) {
 
-				os=new MyObjectOutputStream(new FileOutputStream(f));
+				os=new MyObjectOutputStream(new FileOutputStream(f,true));
 
 				ObjectOutputStream objectout = new ObjectOutputStream(fileout);
+				
 				teclado.nextLine();
 				System.out.println("Introduzca nombre:");
 				String n=teclado.nextLine();
@@ -43,9 +42,9 @@ public class HotelController {
 
 				HotelModel h=new HotelModel(n,d,c,p);
 
-				objectout.writeObject(h);
+				os.writeObject(h);
 				//hoteles.add(h);
-				objectout.close();
+				os.close();
 			}else
 				os=new ObjectOutputStream(new FileOutputStream(f));
 			os.close();

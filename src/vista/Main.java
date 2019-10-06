@@ -16,7 +16,7 @@ public class Main {
 		int opcion;
 		
 		//ArrayList<HotelModel>hoteles=new ArrayList<HotelModel>();
-		//ArrayList<VueloModel>vuelos=new ArrayList<VueloModel>();
+		ArrayList<VueloModel>vuelos=new ArrayList<VueloModel>();
 		//ArrayList<PaqueteModel>paquetes=new ArrayList<PaqueteModel>();
 	
 		do {
@@ -39,49 +39,57 @@ public class Main {
 			switch(opcion) {
 			
 			case 1:
+				System.out.println("Introducir nuevo vuelo");
 				VueloController.añadirNuevoVuelo(teclado);
-				
 				break;
 			case 2:
-				VueloController.listarVuelos();
-				
+				System.out.println("Leer los vuelos");
+				VueloController.listarVuelos();			
 				break;
 			case 3:
-				VueloController.modificarVuelo(teclado);
-				
-				break;
-				
+				System.out.println("Modificar un vuelo");
+				VueloController.modificarVuelo(teclado);			
+				break;			
 			case 4:
-				VueloController.BorrarVuelo(teclado);
-				
+				System.out.println("Borrar un vuelo");
+				VueloController.BorrarVuelo(teclado);				
 				break;
 			case 5:
-				HotelController.añadirNuevoHotel(teclado);
-				
+				System.out.println("Introducir nuevo hotel");
+				HotelController.añadirNuevoHotel(teclado);				
 				break;
 			case 6:
-				HotelController.listarHoteles();
-				
+				System.out.println("Leer los Hoteles");
+				HotelController.listarHoteles();				
 				break;
 			case 7:
-				HotelController.modificarHotel(teclado);
-				
+				System.out.println("Modificar un Hotel");
+				HotelController.modificarHotel(teclado);				
 				break;
 			case 8:
-				HotelController.BorrarHotel(teclado);
-				
+				System.out.println("Borrar un hotel");
+				HotelController.BorrarHotel(teclado);				
 				break;
 			case 9:
+				System.out.println("Introducir un paquete de Viaje");
 				PaqueteController.añadirNuevoPaquete(teclado);
 				break;
 			case 10:
+				System.out.println("Leer Paquetes de Viaje");
 				PaqueteController.listarPaquetes();
 				break;
 			case 11:
+				System.out.println("Modificar un Paquete de Viaje");
 				PaqueteController.modificarPaquete(teclado);
 				break;
 			case 12:
+				System.out.println("Borrar un paquete de Viaje");
+				PaqueteController.BorrarPaquete(teclado);
 				break;
+				
+				default:
+					System.out.println("Ha elegido una opcion errronea");
+					break;
 				
 			}
 			
