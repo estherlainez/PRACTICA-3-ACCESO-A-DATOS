@@ -39,13 +39,19 @@ public class HotelModel implements Serializable{
 		this.precio = precio;
 	}
 	
+	public static double calcularPrecioEstancia(double precio, int dias) {
+		double resultado=precio*dias;
+		return resultado;
+		
+	}
+	
 	
 	
 	
 	@Override
 	public String toString() {
 		return "Hotel [nombre=" + nombre + ", descripcion=" + descripcion + ", ciudad=" + ciudad + ", precio=" + precio
-				+ "]";
+				+ " euros/Noche"+"]";
 	}
 
 }

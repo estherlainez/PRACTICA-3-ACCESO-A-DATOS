@@ -17,7 +17,7 @@ public class VueloController {
 	private static String ruta="src/vuelos.dat";
 	
 	public static void añadirNuevoVuelo(Scanner teclado) {
-	
+		ArrayList<VueloModel>vuelos=new ArrayList<VueloModel>();
 		File f= new File(ruta);		
 		try {
 			FileOutputStream fileout = new FileOutputStream(f,true);
@@ -40,7 +40,7 @@ public class VueloController {
 				
 				VueloModel v=new VueloModel(n,co,cd,pv);
 				objectout.writeObject(v);
-				
+				vuelos.add(v);
 				objectout.close();
 	
 			}else
@@ -53,22 +53,22 @@ public class VueloController {
 		
 	}
 
+	
 	public static  ArrayList<VueloModel> listarVuelos() {
 		ArrayList<VueloModel>vuelos=new ArrayList<VueloModel>();
 		File f= new File(ruta);
 		
 		try {
 			ObjectInputStream ois=new ObjectInputStream(new FileInputStream(f));
-
+			
 			while(true) {
-				vuelos.add(((VueloModel)ois.readObject()));
-
+				vuelos.add((VueloModel)ois.readObject());
+				
 			}
 
 		}catch(ClassNotFoundException e) {
 			e.printStackTrace();		
 		}catch(EOFException e) {
-
 			for (VueloModel v:vuelos) {
 				System.out.println(v.toString());
 			}

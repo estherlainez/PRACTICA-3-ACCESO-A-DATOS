@@ -78,6 +78,7 @@ public class Main {
 				PaqueteController.listarPaquetes();
 				break;
 			case 11:
+				PaqueteController.modificarPaquete(teclado);
 				break;
 			case 12:
 				break;

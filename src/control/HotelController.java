@@ -19,7 +19,7 @@ public class HotelController {
 	private static String ruta="src/hoteles.dat";
 
 	public static void añadirNuevoHotel(Scanner teclado) {
-		ArrayList<HotelModel>hoteles=new ArrayList<HotelModel>();
+		//ArrayList<HotelModel>hoteles=new ArrayList<HotelModel>();
 		File f= new File(ruta);
 
 		try {
