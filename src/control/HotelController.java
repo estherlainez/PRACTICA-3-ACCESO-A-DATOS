@@ -6,12 +6,12 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Scanner;
-
+import java.io.SequenceInputStream;
+import java.util.*;
+import modelo.MyObjectOutputStream;
 import modelo.HotelModel;
 import modelo.VueloModel;
 
@@ -20,33 +20,25 @@ public class HotelController {
 
 	public static void añadirNuevoHotel(Scanner teclado) {
 		File f= new File(ruta);
+		ObjectOutputStream os=null;
+		
 		try {
-			FileOutputStream fileout = new FileOutputStream(f,true);
-
-			ObjectOutputStream os=null;
-			if(f.exists()) {
-
-				os=new MyObjectOutputStream(new FileOutputStream(f,true));
-
-				ObjectOutputStream objectout = new ObjectOutputStream(fileout);
+			os=new MyObjectOutputStream(new FileOutputStream(f,true));
 				
-				teclado.nextLine();
-				System.out.println("Introduzca nombre:");
-				String n=teclado.nextLine();
-				System.out.println("Añada descripcion del hotel:");
-				String d=teclado.nextLine();
-				System.out.println("Añada ciudad donde se encuentra el Hotel:");
-				String c=teclado.nextLine();
-				System.out.println("Añada precio del hotel:");
-				double p=teclado.nextDouble();
+			teclado.nextLine();
+			System.out.println("Introduzca nombre:");
+			String n=teclado.nextLine();
+			System.out.println("Añada descripcion del hotel:");
+			String d=teclado.nextLine();
+			System.out.println("Añada ciudad donde se encuentra el Hotel:");
+			String c=teclado.nextLine();
+			System.out.println("Añada precio del hotel:");
+			double p=teclado.nextDouble();
 
-				HotelModel h=new HotelModel(n,d,c,p);
+			HotelModel h=new HotelModel(n,d,c,p);
 
-				os.writeObject(h);
-				//hoteles.add(h);
-				os.close();
-			}else
-				os=new ObjectOutputStream(new FileOutputStream(f));
+			os.writeObject(h);
+	
 			os.close();
 
 		}catch(IOException e) {
@@ -54,7 +46,35 @@ public class HotelController {
 		}
 
 	}
+	
+	
+	public static  ArrayList<HotelModel>listarHoteles() {
+		ArrayList<HotelModel>hoteles=new ArrayList<HotelModel>();
+		File f= new File(ruta);
+		ObjectInputStream ois=null;
+		try {
+			ois=new ObjectInputStream(new FileInputStream(f));
+			
+			while(true) {
+				hoteles.add(((HotelModel)ois.readObject()));
+				
+			}
 
+		}catch(ClassNotFoundException e) {
+			e.printStackTrace();		
+		}catch(EOFException e) {
+
+			for (HotelModel h:hoteles) {
+				System.out.println(h.toString());
+			}
+		}catch(IOException e) {
+			e.printStackTrace();
+		}
+		return hoteles;
+
+	}
+
+	
 	public static void modificarHotel(Scanner teclado) {
 		ArrayList<HotelModel>hoteles=null;
 
@@ -103,35 +123,6 @@ public class HotelController {
 		}
 
 	}
-	
-	
-
-	public static  ArrayList<HotelModel>listarHoteles() {
-		ArrayList<HotelModel>hoteles=new ArrayList<HotelModel>();
-		File f= new File(ruta);
-		
-		try {
-			ObjectInputStream ois=new ObjectInputStream(new FileInputStream(f));
-
-			while(true) {
-				hoteles.add(((HotelModel)ois.readObject()));
-
-			}
-
-		}catch(ClassNotFoundException e) {
-			e.printStackTrace();		
-		}catch(EOFException e) {
-
-			for (HotelModel h:hoteles) {
-				System.out.println(h.toString());
-			}
-		}catch(IOException e) {
-			e.printStackTrace();
-		}
-		return hoteles;
-
-	}
-	
 	
 	
 	public static void BorrarHotel(Scanner teclado) {
