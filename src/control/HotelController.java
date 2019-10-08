@@ -81,7 +81,6 @@ public class HotelController {
 			
 			while(true) {
 				hoteles.add(((HotelModel)ois.readObject()));
-				
 			}
 
 		}catch(ClassNotFoundException e) {
@@ -163,11 +162,8 @@ public class HotelController {
 			ObjectOutputStream objectout = new ObjectOutputStream(fileout);
 			
 			for(int i=0;i<hoteles.size();i++) {
-				if((i+1!=pos)) {
-					
+				if((i+1!=pos)) {			
 					objectout.writeObject(hoteles.get(i));
-
-					
 				}
 			}
 			objectout.close();
@@ -177,6 +173,5 @@ public class HotelController {
 		}
 
 	}
-
 
 }

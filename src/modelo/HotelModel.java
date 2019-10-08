@@ -46,8 +46,6 @@ public class HotelModel implements Serializable{
 	}
 	
 	
-	
-	
 	@Override
 	public String toString() {
 		return "Hotel [nombre=" + nombre + ", descripcion=" + descripcion + ", ciudad=" + ciudad + ", precio=" + precio

@@ -294,10 +294,7 @@ public class PaqueteController {
 			
 			for(int i=0;i<paquetes.size();i++) {
 				if((i+1!=pos)) {
-					
 					out.writeObject(paquetes.get(i));
-					
-					
 				}
 			}
 			out.close();

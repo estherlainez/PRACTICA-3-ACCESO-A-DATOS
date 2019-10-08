@@ -153,9 +153,7 @@ public class VueloController {
 			
 			for(int i=0;i<vuelos.size();i++) {
 				if((i+1!=pos)) {
-					
 					objectout.writeObject(vuelos.get(i));
-	
 				}
 			}
 			objectout.close();
