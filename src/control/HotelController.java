@@ -23,23 +23,47 @@ public class HotelController {
 		ObjectOutputStream os=null;
 		
 		try {
-			os=new MyObjectOutputStream(new FileOutputStream(f,true));
+			if(!f.exists()){
+				os=new ObjectOutputStream(new FileOutputStream(f));
 				
-			teclado.nextLine();
-			System.out.println("Introduzca nombre:");
-			String n=teclado.nextLine();
-			System.out.println("Añada descripcion del hotel:");
-			String d=teclado.nextLine();
-			System.out.println("Añada ciudad donde se encuentra el Hotel:");
-			String c=teclado.nextLine();
-			System.out.println("Añada precio del hotel:");
-			double p=teclado.nextDouble();
-
-			HotelModel h=new HotelModel(n,d,c,p);
-
-			os.writeObject(h);
+				teclado.nextLine();
+				System.out.println("Introduzca nombre:");
+				String n=teclado.nextLine();
+				System.out.println("Añada descripcion del hotel:");
+				String d=teclado.nextLine();
+				System.out.println("Añada ciudad donde se encuentra el Hotel:");
+				String c=teclado.nextLine();
+				System.out.println("Añada precio del hotel:");
+				
+				double p=teclado.nextDouble();
 	
-			os.close();
+				HotelModel h=new HotelModel(n,d,c,p);
+	
+				os.writeObject(h);
+		
+				os.close();
+				
+			}else {
+			
+				os=new MyObjectOutputStream(new FileOutputStream(f,true));
+					
+				teclado.nextLine();
+				System.out.println("Introduzca nombre:");
+				String n=teclado.nextLine();
+				System.out.println("Añada descripcion del hotel:");
+				String d=teclado.nextLine();
+				System.out.println("Añada ciudad donde se encuentra el Hotel:");
+				String c=teclado.nextLine();
+				System.out.println("Añada precio del hotel:");
+				
+				double p=teclado.nextDouble();
+	
+				HotelModel h=new HotelModel(n,d,c,p);
+	
+				os.writeObject(h);
+		
+				os.close();
+			}
 
 		}catch(IOException e) {
 			e.printStackTrace();

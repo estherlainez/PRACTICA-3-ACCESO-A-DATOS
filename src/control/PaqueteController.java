@@ -22,21 +22,16 @@ public class PaqueteController {
 		File f= new File(ruta);
 		
 		try {
-			FileOutputStream out = new FileOutputStream(f,true);
-
 			ObjectOutputStream os=null;
 			if(f.exists()) {
-				boolean esCorrecto=true;
-				os=new MyObjectOutputStream(new FileOutputStream(f));
+				
+				os=new MyObjectOutputStream(new FileOutputStream(f,true));
 
-				ObjectOutputStream objectout = new ObjectOutputStream(out);
 				teclado.nextLine();
 				System.out.println("Introduzca nombre del paquete:");
 				String nom=teclado.nextLine();
-				//System.out.println("Añada fecha de inicio:");
-				String fIni;
-				//System.out.println("Añada fecha de fin:");
-				String fFin;
+				String fIni,fFin;
+				boolean esCorrecto=true;
 				
 				do{
 					System.out.println("Comprobando las fechas, la fecha de inicio sera anterior a la de fin.....");
@@ -88,9 +83,9 @@ public class PaqueteController {
 				System.out.println(".....Su precio total asciende a..."+precioTotal+" Euros");
 				PaqueteModel p=new PaqueteModel(nom, fIni,fFin, ho,vueloIda, vueloVuelta);
 
-				objectout.writeObject(p);
+				os.writeObject(p);
 				
-				objectout.close();
+				os.close();
 			}else
 				os=new ObjectOutputStream(new FileOutputStream(f));
 			os.close();

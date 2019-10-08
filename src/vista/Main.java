@@ -16,7 +16,7 @@ public class Main {
 		int opcion;
 		
 		//ArrayList<HotelModel>hoteles=new ArrayList<HotelModel>();
-		ArrayList<VueloModel>vuelos=new ArrayList<VueloModel>();
+		//ArrayList<VueloModel>vuelos=new ArrayList<VueloModel>();
 		//ArrayList<PaqueteModel>paquetes=new ArrayList<PaqueteModel>();
 	
 		do {

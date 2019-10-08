@@ -7,27 +7,23 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.StreamCorruptedException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import modelo.*;
 
-import modelo.HotelModel;
-import modelo.VueloModel;
 
 public class VueloController {
 	private static String ruta="src/vuelos.dat";
 	
 	public static void añadirNuevoVuelo(Scanner teclado) {
-		//ArrayList<VueloModel>vuelos=new ArrayList<VueloModel>();
 		File f= new File(ruta);		
 		try {
-			FileOutputStream fileout = new FileOutputStream(f,true);
-		
-			ObjectOutputStream os=null;
+			ObjectOutputStream os=null;	
+			
 			if(f.exists()) {
-				
-				os=new MyObjectOutputStream(new FileOutputStream(f));
-					
-				ObjectOutputStream objectout = new ObjectOutputStream(fileout);
+				os=new MyObjectOutputStream(new FileOutputStream(f,true));
+	
 				teclado.nextLine();
 				System.out.println("Introduzca nombre de la compañia:");
 				String n=teclado.nextLine();
@@ -37,16 +33,28 @@ public class VueloController {
 				String cd=teclado.nextLine();
 				System.out.println("Añada precio:");
 				double pv=teclado.nextDouble();
-				
+					
 				VueloModel v=new VueloModel(n,co,cd,pv);
-				objectout.writeObject(v);
-				//vuelos.add(v);
-				objectout.close();
-	
-			}else
-				os=new ObjectOutputStream(new FileOutputStream(f));
+				os.writeObject(v);
 				os.close();
-			
+			}else {
+				os=new ObjectOutputStream(new FileOutputStream(f));
+				
+				teclado.nextLine();
+				System.out.println("Introduzca nombre de la compañia:");
+				String n=teclado.nextLine();
+				System.out.println("Añada ciudad de oriden:");
+				String co=teclado.nextLine();
+				System.out.println("Añada ciudad de destino:");
+				String cd=teclado.nextLine();
+				System.out.println("Añada precio:");
+				double pv=teclado.nextDouble();
+					
+				VueloModel v=new VueloModel(n,co,cd,pv);
+				os.writeObject(v);
+				os.close();
+			}
+	
 		}catch(IOException e) {
 			e.printStackTrace();
 		}
@@ -76,6 +84,7 @@ public class VueloController {
 		}catch(IOException e) {
 			e.printStackTrace();
 		}
+		
 		return vuelos;
 	
 	}
