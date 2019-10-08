@@ -14,10 +14,6 @@ public class Main {
 
 		Scanner teclado=new Scanner(System.in);
 		int opcion;
-		
-		//ArrayList<HotelModel>hoteles=new ArrayList<HotelModel>();
-		//ArrayList<VueloModel>vuelos=new ArrayList<VueloModel>();
-		//ArrayList<PaqueteModel>paquetes=new ArrayList<PaqueteModel>();
 	
 		do {
 			System.out.println("MENU");
@@ -33,6 +29,7 @@ public class Main {
 			System.out.println("10.Leer Paquetes");
 			System.out.println("11.Modificar Paquete");
 			System.out.println("12.Borrar un paquete");
+			System.out.println("13.Salir");
 			System.out.println("Introduzca opcion a elegir");
 			opcion=teclado.nextInt();
 			
@@ -86,6 +83,9 @@ public class Main {
 				System.out.println("Borrar un paquete de Viaje");
 				PaqueteController.BorrarPaquete(teclado);
 				break;
+			case 13:
+				System.out.println("Que tengas un buen viaje");
+				break;
 				
 				default:
 					System.out.println("Ha elegido una opcion errronea");
@@ -94,7 +94,7 @@ public class Main {
 			}
 			
 			
-		}while(opcion!=12);
+		}while(opcion!=13);
 		
 	}
 

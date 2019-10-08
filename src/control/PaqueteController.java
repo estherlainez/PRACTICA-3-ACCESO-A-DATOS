@@ -86,10 +86,68 @@ public class PaqueteController {
 				os.writeObject(p);
 				
 				os.close();
-			}else
+			}else {
 				os=new ObjectOutputStream(new FileOutputStream(f));
-			os.close();
-
+			
+				teclado.nextLine();
+				System.out.println("Introduzca nombre del paquete:");
+				String nom=teclado.nextLine();
+				String fIni,fFin;
+				boolean esCorrecto=true;
+				
+				do{
+					System.out.println("Comprobando las fechas, la fecha de inicio sera anterior a la de fin.....");
+					System.out.println("Añada fecha de inicio:");
+					fIni=teclado.nextLine();
+					System.out.println("Añada fecha de fin:");
+					fFin=teclado.nextLine();
+					esCorrecto=PaqueteModel.compararFechas(fIni, fFin);
+					
+				}while(esCorrecto==false);
+				
+				int diasViaje=PaqueteModel.calcularDias(fIni, fFin);
+				System.out.println("Duracion de dias del viaje--->"+diasViaje+" dias");
+				System.out.println("Datos del hotel:");
+				System.out.println("Nombre del Hotel");
+				String nH=teclado.nextLine();
+				System.out.println("Descripcion del hotel:");
+				String dH= teclado.nextLine();
+				System.out.println("Ciudad del Hotel:");
+				String cH=teclado.nextLine();
+				System.out.println("Precio Hotel:");
+				double pH=teclado.nextDouble();
+				double precioEstancia=HotelModel.calcularPrecioEstancia(pH, diasViaje);
+				System.out.println("El precio de la estancia sera de--->"+precioEstancia+" euros");
+				HotelModel ho=new HotelModel(nH,dH,cH,pH);
+				System.out.println("Datos del vuelo de ida:");
+				System.out.println("Nombre de la compañia:");
+				teclado.nextLine();
+				String nV=teclado.nextLine();
+				System.out.println("Origen del vuelo de ida");
+				String oV=teclado.nextLine();
+				System.out.println("Destino del vuelo de ida");
+				String dV=teclado.nextLine();
+				System.out.println("Precio del vuelo de ida");
+				double pI=teclado.nextDouble();
+				VueloModel vueloIda=new VueloModel(nV,oV,dV,pI);
+				System.out.println("Datos del vuelo de vuelta:");
+				System.out.println("Nombre de la compañia:");
+				teclado.nextLine();
+				String nV1=teclado.nextLine();
+				System.out.println("Origen del vuelo de ida");
+				String oV1=teclado.nextLine();
+				System.out.println("Destino del vuelo de ida");
+				String dV1=teclado.nextLine();
+				System.out.println("Precio del vuelo de ida");
+				double p1=teclado.nextDouble();
+				VueloModel vueloVuelta=new VueloModel(nV1,oV1,dV1,p1);
+				double precioTotal=precioEstancia+pI+p1;
+				System.out.println(".....Su precio total asciende a..."+precioTotal+" Euros");
+				PaqueteModel p=new PaqueteModel(nom, fIni,fFin, ho,vueloIda, vueloVuelta);
+	
+				os.writeObject(p);
+				os.close();
+			}
 		}catch(IOException e) {
 			e.printStackTrace();
 		}
@@ -229,24 +287,28 @@ public class PaqueteController {
 
 			System.out.println("Introduce la posicion del paquete a borrar");
 			int pos=teclado.nextInt();
-			String origen=teclado.nextLine();
-			for(int i=1;i<=paquetes.size();i++) {
-				if(!(i==pos)) {
+			
+			File f= new File(ruta);
+			FileOutputStream fout = new FileOutputStream(f);
+			ObjectOutputStream out = new ObjectOutputStream(fout);
+			
+			for(int i=0;i<paquetes.size();i++) {
+				if((i+1!=pos)) {
 					
-					File f= new File(ruta);
-					FileOutputStream fout = new FileOutputStream(f);
-					ObjectOutputStream out = new ObjectOutputStream(fout);
-					for(PaqueteModel pa: paquetes)
-						out.writeObject(pa);
-
-					out.close();
+					out.writeObject(paquetes.get(i));
+					
+					
 				}
 			}
+			out.close();
 
 		}catch(IOException e) {
 			e.printStackTrace();
 		}
 
 	}
+	
+	
+	
 	
 }

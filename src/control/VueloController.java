@@ -138,7 +138,6 @@ public class VueloController {
 
 	}
 	
-	
 	public static void BorrarVuelo(Scanner teclado) {
 		ArrayList<VueloModel>vuelos=null;
 		
@@ -147,25 +146,29 @@ public class VueloController {
 
 			System.out.println("Introduce la posicion del vuelo a borrar");
 			int pos=teclado.nextInt();
-			String origen=teclado.nextLine();
-			for(int i=1;i<=vuelos.size();i++) {
-				if(!(i==pos)) {
+			
+			File f= new File(ruta);
+			FileOutputStream fileout = new FileOutputStream(f);
+			ObjectOutputStream objectout = new ObjectOutputStream(fileout);
+			
+			for(int i=0;i<vuelos.size();i++) {
+				if((i+1!=pos)) {
 					
-					File f= new File(ruta);
-					FileOutputStream fileout = new FileOutputStream(f);
-					ObjectOutputStream objectout = new ObjectOutputStream(fileout);
-					for(VueloModel vu: vuelos)
-						objectout.writeObject(vu);
-
-					objectout.close();
+					objectout.writeObject(vuelos.get(i));
+	
 				}
 			}
+			objectout.close();
 
 		}catch(IOException e) {
 			e.printStackTrace();
 		}
 
 	}
+
+	
+	
+	
 	
 
 }

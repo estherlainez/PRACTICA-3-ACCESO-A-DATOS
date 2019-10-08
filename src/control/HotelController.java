@@ -157,19 +157,20 @@ public class HotelController {
 
 			System.out.println("Introduce la posicion del hotel a borrar");
 			int pos=teclado.nextInt();
-			String origen=teclado.nextLine();
-			for(int i=1;i<=hoteles.size();i++) {
-				if(!(i==pos)) {
+			
+			File f= new File(ruta);
+			FileOutputStream fileout = new FileOutputStream(f);
+			ObjectOutputStream objectout = new ObjectOutputStream(fileout);
+			
+			for(int i=0;i<hoteles.size();i++) {
+				if((i+1!=pos)) {
 					
-					File f= new File(ruta);
-					FileOutputStream fileout = new FileOutputStream(f);
-					ObjectOutputStream objectout = new ObjectOutputStream(fileout);
-					for(HotelModel ho: hoteles)
-						objectout.writeObject(ho);
+					objectout.writeObject(hoteles.get(i));
 
-					objectout.close();
+					
 				}
 			}
+			objectout.close();
 
 		}catch(IOException e) {
 			e.printStackTrace();
